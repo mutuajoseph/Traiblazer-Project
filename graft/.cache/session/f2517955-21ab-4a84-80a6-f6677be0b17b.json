@@ -1,0 +1,12 @@
+{
+  "lastQuery": "so what do I need to do",
+  "perAgentQuery": {},
+  "graftReads": 0,
+  "sourceReads": 0,
+  "savedTokens": 0,
+  "injectedPointers": [],
+  "nudges": 0,
+  "inputCostMicros": 177151,
+  "inputTokensBilled": 164954,
+  "lastBillingUuid": "a8f23327-de06-4533-8659-87820bba3f94"
+}
