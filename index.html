@@ -1,11 +1,522 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Hello, World!</h1>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#192c3b" />
+    <meta
+      name="description"
+      content="A daily attendance register for class prefects."
+    />
+    <title>Rollmark | Class attendance</title>
+    <link rel="stylesheet" href="base.css" />
+    <link rel="stylesheet" href="register.css" />
+    <script defer src="register.js"></script>
+  </head>
+  <body class="workspace">
+    <header>
+      <div class="topinner">
+        <div class="brand">
+          <span class="logomark"
+            ><svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="23"
+              height="23"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-notebook-tabs"
+              aria-hidden="true"
+            >
+              <path d="M2 6h4"></path>
+              <path d="M2 10h4"></path>
+              <path d="M2 14h4"></path>
+              <path d="M2 18h4"></path>
+              <rect width="16" height="20" x="4" y="2" rx="2"></rect>
+              <path d="M15 2v20"></path>
+              <path d="M15 7h5"></path>
+              <path d="M15 12h5"></path>
+              <path d="M15 17h5"></path></svg></span
+          >Rollmark
+        </div>
+        <nav aria-label="Workspace">
+          <span class="active"
+            ><svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-clipboard-list"
+              aria-hidden="true"
+            >
+              <rect width="8" height="4" x="8" y="2" rx="1" ry="1"></rect>
+              <path
+                d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"
+              ></path>
+              <path d="M12 11h4"></path>
+              <path d="M12 16h4"></path>
+              <path d="M8 11h.01"></path>
+              <path d="M8 16h.01"></path></svg
+            >Attendance</span
+          ><button id="edit">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-users"
+              aria-hidden="true"
+            >
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+              <path d="M16 3.128a4 4 0 0 1 0 7.744"></path>
+              <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+              <circle cx="9" cy="7" r="4"></circle></svg
+            >Class roster
+          </button>
+        </nav>
+        <div class="profile"><span>PF</span>Class prefect</div>
+      </div>
+    </header>
+    <main>
+      <div class="intro">
+        <div>
+          <div class="eyebrow"><i></i> PREFECT WORKSPACE</div>
+          <h1>Class attendance</h1>
+          <p>Your daily class register, all in one place.</p>
+        </div>
+        <label class="date"
+          ><svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-calendar-days"
+            aria-hidden="true"
+          >
+            <path d="M8 2v4"></path>
+            <path d="M16 2v4"></path>
+            <rect width="18" height="18" x="3" y="4" rx="2"></rect>
+            <path d="M3 10h18"></path>
+            <path d="M8 14h.01"></path>
+            <path d="M12 14h.01"></path>
+            <path d="M16 14h.01"></path>
+            <path d="M8 18h.01"></path>
+            <path d="M12 18h.01"></path>
+            <path d="M16 18h.01"></path></svg
+          ><span id="date-label"></span
+          ><input aria-label="Register date" id="date" type="date" /><svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="13"
+            height="13"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-chevron-down"
+            aria-hidden="true"
+          >
+            <path d="m6 9 6 6 6-6"></path></svg
+        ></label>
+      </div>
+      <section class="metrics" aria-label="Attendance totals">
+        <div class="metric m0">
+          <span class="metricicon"
+            ><svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-users"
+              aria-hidden="true"
+            >
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+              <path d="M16 3.128a4 4 0 0 1 0 7.744"></path>
+              <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+              <circle cx="9" cy="7" r="4"></circle></svg
+          ></span>
+          <div><strong id="total">00</strong><span>Total students</span></div>
+        </div>
+        <div class="metric m1">
+          <span class="metricicon"
+            ><svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-user-check"
+              aria-hidden="true"
+            >
+              <path d="m16 11 2 2 4-4"></path>
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle></svg
+          ></span>
+          <div><strong id="Present">00</strong><span>Present</span></div>
+        </div>
+        <div class="metric m2">
+          <span class="metricicon"
+            ><svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-user-x"
+              aria-hidden="true"
+            >
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <line x1="17" x2="22" y1="8" y2="13"></line>
+              <line x1="22" x2="17" y1="8" y2="13"></line></svg
+          ></span>
+          <div><strong id="Absent">00</strong><span>Absent</span></div>
+        </div>
+        <div class="metric m3">
+          <span class="metricicon"
+            ><svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-circle-dashed"
+              aria-hidden="true"
+            >
+              <path d="M10.1 2.182a10 10 0 0 1 3.8 0"></path>
+              <path d="M13.9 21.818a10 10 0 0 1-3.8 0"></path>
+              <path d="M17.609 3.721a10 10 0 0 1 2.69 2.7"></path>
+              <path d="M2.182 13.9a10 10 0 0 1 0-3.8"></path>
+              <path d="M20.279 17.609a10 10 0 0 1-2.7 2.69"></path>
+              <path d="M21.818 10.1a10 10 0 0 1 0 3.8"></path>
+              <path d="M3.721 6.391a10 10 0 0 1 2.7-2.69"></path>
+              <path d="M6.391 20.279a10 10 0 0 1-2.69-2.7"></path></svg
+          ></span>
+          <div><strong id="Unmarked">00</strong><span>Unmarked</span></div>
+        </div>
+      </section>
+      <section class="sheet">
+        <div class="sheethead">
+          <div class="rostericon">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="21"
+              height="21"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-clipboard-list"
+              aria-hidden="true"
+            >
+              <rect width="8" height="4" x="8" y="2" rx="1" ry="1"></rect>
+              <path
+                d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"
+              ></path>
+              <path d="M12 11h4"></path>
+              <path d="M12 16h4"></path>
+              <path d="M8 11h.01"></path>
+              <path d="M8 16h.01"></path>
+            </svg>
+          </div>
+          <div>
+            <h2>Student register</h2>
+            <div class="sub">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-graduation-cap"
+                aria-hidden="true"
+              >
+                <path
+                  d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"
+                ></path>
+                <path d="M22 10v6"></path>
+                <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"></path></svg
+              ><span id="class-title"></span><b>·</b
+              ><span id="class-count"></span>
+            </div>
+          </div>
+          <button id="save" class="save">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-download"
+              aria-hidden="true"
+            >
+              <path d="M12 15V3"></path>
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <path d="m7 10 5 5 5-5"></path></svg
+            >Save register
+          </button>
+        </div>
+        <div class="tools">
+          <label class="search"
+            ><svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="17"
+              height="17"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-search"
+              aria-hidden="true"
+            >
+              <path d="m21 21-4.34-4.34"></path>
+              <circle cx="11" cy="11" r="8"></circle></svg
+            ><input
+              id="search"
+              aria-label="Search students"
+              placeholder="Search students by name..."
+            /><kbd>/</kbd></label
+          ><label class="filter"
+            ><svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-list-filter"
+              aria-hidden="true"
+            >
+              <path d="M2 5h20"></path>
+              <path d="M6 12h12"></path>
+              <path d="M9 19h6"></path></svg
+            ><select id="filter" aria-label="Filter attendance status">
+              <option>All statuses</option>
+              <option>Present</option>
+              <option>Absent</option>
+              <option>Unmarked</option></select
+            ><svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="13"
+              height="13"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-chevron-down"
+              aria-hidden="true"
+            >
+              <path d="m6 9 6 6 6-6"></path></svg
+          ></label>
+        </div>
+        <div class="row labels">
+          <span>ROLL NO.</span><span>STUDENT NAME</span><span>ATTENDANCE</span>
+        </div>
+        <div id="rows"></div>
+        <p class="empty" hidden>No students match your search or filter.</p>
+        <footer>
+          <span id="marked"></span
+          ><button id="open">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-folder-open"
+              aria-hidden="true"
+            >
+              <path
+                d="m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2"
+              ></path></svg
+            >Open register
+          </button>
+        </footer>
+      </section>
+      <div class="note">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-book-open"
+          aria-hidden="true"
+        >
+          <path d="M12 7v14"></path>
+          <path
+            d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"
+          ></path></svg
+        >Changes stay in this tab until you save a register file.
+      </div>
+      <p class="notice" id="message" role="status"></p>
+      <input
+        id="file"
+        type="file"
+        accept=".json,application/json"
+        hidden
+        aria-label="Open register file"
+      />
+    </main>
+    <dialog id="editor" aria-labelledby="editor-title">
+      <form id="roster-form">
+        <div class="dialoghead">
+          <h2 id="editor-title">Class roster</h2>
+          <button id="close" type="button" aria-label="Close roster editor">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-x"
+              aria-hidden="true"
+            >
+              <path d="M18 6 6 18"></path>
+              <path d="m6 6 12 12"></path>
+            </svg>
+          </button>
+        </div>
+        <label
+          >Class name<input required maxlength="80" id="title-input" /></label
+        ><label
+          >Student names
+          <small
+            >One name per line. Replace the sample roster with your
+            class.</small
+          ><textarea required rows="9" id="names-input"></textarea>
+        </label>
+        <p id="roster-error" role="status"></p>
+        <button class="save">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-pencil"
+            aria-hidden="true"
+          >
+            <path
+              d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"
+            ></path>
+            <path d="m15 5 4 4"></path></svg
+          >Apply roster
+        </button>
+      </form>
+    </dialog>
+    <template id="student-row"
+      ><div class="row student">
+        <span class="num"></span>
+        <div class="identity">
+          <span class="avatar"></span><strong></strong>
+        </div>
+        <div class="options">
+          <button class="present" data-status="Present">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-check"
+              aria-hidden="true"
+            >
+              <path d="M20 6 9 17l-5-5"></path></svg
+            >Present</button
+          ><button class="absent" data-status="Absent">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-x"
+              aria-hidden="true"
+            >
+              <path d="M18 6 6 18"></path>
+              <path d="m6 6 12 12"></path></svg
+            >Absent
+          </button>
+        </div>
+      </div></template
+    >
+  </body>
 </html>

@@ -1,0 +1,39 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html {
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+}
+body,
+h1,
+h2,
+p {
+  margin: 0;
+}
+body {
+  -webkit-font-smoothing: antialiased;
+}
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+button {
+  text-align: inherit;
+}
+svg {
+  display: block;
+  flex-shrink: 0;
+}
+[hidden] {
+  display: none !important;
+}
